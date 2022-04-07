@@ -1,0 +1,29 @@
+<mat-card class="mat-elevation-z4 container">
+  <mat-card-title class="title"> Formulário Dinâmico </mat-card-title>
+  <form [formGroup]="userProfile" (ngSubmit)="onSubmit()">
+    <mat-form-field *ngFor="let input of fieldsets">
+      <mat-label>{{ input.label }}</mat-label>
+      <input
+        *ngIf="input.type !== 'select'"
+        matInput
+        type="{{ input.type }}"
+        name="{{ input.name }}"
+        formControlName="{{ input.name }}"
+        required
+      />
+      <mat-select
+        *ngIf="input.type == 'select'"
+        formControlName="{{ input.name }}"
+      >
+        <mat-option
+          *ngFor="let option of input.options"
+          value="{{ option.value }}"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Enviar</button>
+  </form>
+</mat-card>
